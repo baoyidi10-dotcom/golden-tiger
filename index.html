@@ -598,7 +598,7 @@ function viewAjustes(){
     +'<label>Restaurar a partir de um arquivo</label><input type="file" id="imp-file" accept=".json,application/json">'
     +'<label>ou cole o texto do backup aqui</label><textarea id="imp-text" placeholder="Cole aqui"></textarea><div class="btns"><button class="btn" data-act="import-text">Restaurar</button></div></div>';
   h+='<h2>Demonstração</h2><div class="card"><div class="meta" style="margin-bottom:12px">Carrega alunos de exemplo para testar. Isso substitui os dados atuais.</div><div class="btns" style="margin-top:0"><button class="btn" data-act="demo">Carregar exemplo</button><button class="btn danger" data-act="wipe">Apagar tudo</button></div></div>';
-  h+='<div class="small" style="text-align:center;margin:20px 0">Versão 1 · funciona sem internet</div>';
+  h+='<div class="small" style="text-align:center;margin:20px 0">Versão 1 · funciona sem internet depois da primeira abertura</div>';
   return h;
 }
 
@@ -937,6 +937,9 @@ function selfTest(){
 
 /* ---------- start ---------- */
 if(LOGO){document.getElementById('wm').style.backgroundImage='url('+LOGO+')';}
+if(!TEST&&'serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){
+  window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});
+}
 if(TEST){selfTest();}
 else{
   if(DEMOM){S=demoData();ui.tab=DEMOM[1]||'hoje';}
